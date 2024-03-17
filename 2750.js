@@ -1,0 +1,30 @@
+const fileSystem = require('fs');
+const { type } = require('os');
+const endereco = require('path');
+const { pipeline } = require('stream');
+const enderecoDesteScriptJS = endereco.dirname(process.argv[1]);
+const conteudoArquivo = fileSystem.readFileSync(enderecoDesteScriptJS + '\\dev\\stdin', 'utf8');
+const quebraLinhaWindows = '\r\n'
+let lines = conteudoArquivo.split(quebraLinhaWindows);
+console.clear();
+
+console.log(`---------------------------------------`);
+console.log(`| decimal   |  octal  |  Hexadecimal  |`);
+console.log(`---------------------------------------`);
+console.log(`|      0    |    0    |       0       |`);
+console.log(`|      1    |    1    |       1       |`);
+console.log(`|      2    |    2    |       2       |`);
+console.log(`|      3    |    3    |       3       |`);
+console.log(`|      4    |    4    |       4       |`);
+console.log(`|      5    |    5    |       5       |`);
+console.log(`|      6    |    6    |       6       |`);
+console.log(`|      7    |    7    |       7       |`);
+console.log(`|      8    |   10    |       8       |`);
+console.log(`|      9    |   11    |       9       |`);
+console.log(`|     10    |   12    |       A       |`);
+console.log(`|     11    |   13    |       B       |`);
+console.log(`|     12    |   14    |       C       |`);
+console.log(`|     13    |   15    |       D       |`);
+console.log(`|     14    |   16    |       E       |`);
+console.log(`|     15    |   17    |       F       |`);
+console.log(`---------------------------------------`);
