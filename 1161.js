@@ -9,30 +9,20 @@ let lines = conteudoArquivo.split(quebraLinhaWindows);
 console.clear();
 
 while (lines.length > 0 ) {
-    let [first, second] = lines.shift().split(" ");
-    first = parseInt(first);
-    second = parseInt(second);
+    let [first, second] = lines.shift().split(" ").map(Number);
     if(first < 0 || second < 0 || isNaN(first) || isNaN(second)) break;
-    let ff = first;
-    let fs = second;
     
-    if(first === 0 || first === 1) {
-        ff = 1n;
-    } else {
-        for(let i = ff; i > 1; i--) {
-            ff *= parseInt(i - 1);
-        }
-        ff = BigInt(ff);
-    }
+    first === 0 || first === 1 ? first = 1n : first = factorial(first);
 
-    if(second === 0 || second === 1) {
-        fs = 1n;
-    } else {
-        for(let j = fs; j > 1; j--) {
-            fs *= parseInt(j - 1);
-        }
-        fs = BigInt(fs);
-    }
+    second === 0 || second === 1 ? second = 1n : second = factorial(second);
 
-    console.log(`${fs + ff}`);
+    console.log(`${first + second}`);
 } 
+
+function factorial(n) {
+    if(n > 1) {
+        return BigInt(n) * factorial(n - 1); //recursion
+    } else {
+        return 1n; //this is a base case
+    }
+}
