@@ -1,47 +1,40 @@
-const fileSystem = require('fs')
+const fileSystem = require('fs');
+const { type } = require('os');
 const endereco = require('path');
+const { pipeline } = require('stream');
 const enderecoDesteScriptJS = endereco.dirname(process.argv[1]);
 const conteudoArquivo = fileSystem.readFileSync(enderecoDesteScriptJS + '\\dev\\stdin', 'utf8');
 const quebraLinhaWindows = '\r\n'
 let lines = conteudoArquivo.split(quebraLinhaWindows);
+const prompt = require('prompt-sync')();
+console.clear();
 
-let qtdeNotasValidas = 0;
-let totalNotas = 0;
-let notas;
-let simOUnao;
+let sum = 0;
+let i = 0;
+let opt = 1;
 
-validarCalcular();
+do {
+    let nota = lines.shift();
+    nota = Number(nota);
+    if(nota >= 0 && nota <= 10) {
+        sum += nota;
+        i++;
+        if(i === 2) {
+            console.log(`media = ${(sum / 2).toFixed(2)}`);
+            sum = 0;
+            i = 0;
+            do {
+                console.log(`novo calculo (1-sim 2-nao)`);
+                opt = lines.shift();
+                opt = Number(opt);
 
-function validarCalcular() {
-    do {
-        notas = lines.shift();
-        notas = parseFloat(notas);
-
-        if (notas < 0 || notas > 10) {
-            console.log(`nota invalida`);
-        } else {
-            qtdeNotasValidas++;
-            totalNotas += notas;
+                if(opt === 1 || opt === 2) {
+                    break;
+                }
+            } while(true);
         }
-    } while (qtdeNotasValidas < 2);
-
-    console.log(`media = ${(totalNotas / 2).toFixed(2)}`);
-    pergunta();
-    
-}
-
-
-function pergunta() {
-    qtdeNotasValidas = 0;
-    totalNotas = 0;
-
-    console.log(`novo calculo (1-sim 2-nao)`);
-    while (0 === 0) {
-        simOUnao = lines.shift();
-        simOUnao = parseFloat(simOUnao);
-        if (simOUnao === "undefined" || simOUnao === "" || isNaN(simOUnao)) break;
-        if (simOUnao === 2) process.exit();
-        else if (simOUnao !== 1) console.log(`novo calculo (1-sim 2-nao)`);
-        else if (simOUnao === 1) console.log(`${validarCalcular()}`);
+    } else {
+        console.log(`nota invalida`);
     }
-}
+    if(opt === 2) break;
+} while(opt === 1);

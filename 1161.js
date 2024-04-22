@@ -8,7 +8,7 @@ const quebraLinhaWindows = '\r\n'
 let lines = conteudoArquivo.split(quebraLinhaWindows);
 console.clear();
 
-while (lines.length > 0 ) {
+while (lines.length > 0) {
     let [first, second] = lines.shift().split(" ").map(Number);
     if(first < 0 || second < 0 || isNaN(first) || isNaN(second)) break;
     
@@ -17,7 +17,7 @@ while (lines.length > 0 ) {
     second === 0 || second === 1 ? second = 1n : second = factorial(second);
 
     console.log(`${first + second}`);
-} 
+}
 
 function factorial(n) {
     if(n > 1) {
